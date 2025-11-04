@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bilietų Bendrinimas</title>
+    <title>TicketShare</title>
     <style>
         :root {
             --primary-color: #4285f4;
@@ -1423,7 +1423,7 @@
                         </div>
                         <div class="ticket-expiry">Galioja iki: ${formatDate(expiryDate)}</div>
                         <div class="ticket-actions">
-                            <button class="prepare-btn" data-id="${ticket.id}">Paruošti</button>
+                            <button class="prepare-btn" data-id="${ticket.id}">Paruošti kontrolei</button>
                             ${ticket.ownerId === currentUser.id ? 
                                 `<button class="delete-btn" data-id="${ticket.id}">Pašalinti</button>` : 
                                 ''}
@@ -1543,6 +1543,7 @@
     </script>
 </body>
 </html>
+
 
 
 
