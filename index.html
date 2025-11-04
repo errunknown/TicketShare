@@ -60,6 +60,8 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            cursor: pointer;
+            position: relative;
         }
         
         .user-avatar {
@@ -72,6 +74,53 @@
             align-items: center;
             justify-content: center;
             font-weight: bold;
+            overflow: hidden;
+        }
+
+        .user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .user-dropdown {
+            position: absolute;
+            top: 50px;
+            right: 0;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            min-width: 200px;
+            display: none;
+            z-index: 1000;
+        }
+
+        .user-dropdown.active {
+            display: block;
+        }
+
+        .user-dropdown-item {
+            padding: 12px 20px;
+            cursor: pointer;
+            border-bottom: 1px solid #eee;
+        }
+
+        .user-dropdown-item:hover {
+            background-color: #f5f5f5;
+        }
+
+        .user-dropdown-item:last-child {
+            border-bottom: none;
+            color: var(--danger-color);
+        }
+
+        .admin-badge {
+            background: var(--danger-color);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-left: 5px;
         }
         
         /* Login Page */
@@ -123,15 +172,112 @@
             width: 20px;
             height: 20px;
         }
+
+        /* Modal Styles */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal h2 {
+            margin-bottom: 20px;
+        }
+
+        .profile-edit-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 20px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--primary-color);
+            color: white;
+            font-size: 40px;
+            overflow: hidden;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .profile-edit-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-edit-avatar:hover::after {
+            content: 'Change';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 5px;
+            font-size: 12px;
+        }
         
         /* Main Page */
         .main-page {
             display: none;
         }
+
+        .announcement-banner {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 15px 20px;
+            border-radius: var(--border-radius);
+            margin: 20px 0;
+            display: none;
+        }
+
+        .announcement-banner.active {
+            display: block;
+        }
+
+        .announcement-banner h3 {
+            margin-bottom: 5px;
+        }
         
         .page-title {
             margin: 20px 0;
             color: var(--dark-color);
+        }
+
+        .admin-btn {
+            background-color: var(--danger-color);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 20px;
         }
         
         .add-ticket-btn {
@@ -145,6 +291,12 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
             margin-bottom: 20px;
         }
         
@@ -264,6 +416,11 @@
             border-radius: var(--border-radius);
             font-size: 16px;
         }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 100px;
+        }
         
         .form-actions {
             display: flex;
@@ -287,6 +444,102 @@
         .btn-secondary {
             background-color: #6c757d;
             color: white;
+        }
+
+        /* Admin Panel */
+        .admin-panel {
+            background: white;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            margin-bottom: 40px;
+        }
+
+        .admin-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #eee;
+        }
+
+        .admin-tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-size: 16px;
+            color: #666;
+            border-bottom: 3px solid transparent;
+        }
+
+        .admin-tab.active {
+            color: var(--primary-color);
+            border-bottom-color: var(--primary-color);
+        }
+
+        .admin-content {
+            display: none;
+        }
+
+        .admin-content.active {
+            display: block;
+        }
+
+        .user-list {
+            list-style: none;
+        }
+
+        .user-list-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .user-list-item:last-child {
+            border-bottom: none;
+        }
+
+        .user-list-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-list-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .user-list-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .ban-btn {
+            background: var(--danger-color);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+        }
+
+        .banned-tag {
+            background: #666;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
         }
         
         /* Fullscreen Ticket Preview */
@@ -384,14 +637,13 @@
 
         .qr-section {
             background: #00b300;
-            padding: 10px 20px;
+            padding: 30px 20px;
             display: flex;
             justify-content: center;
             align-items: center;
             position: relative;
         }
 
-        /* Animated circles around QR */
         .qr-container {
             position: relative;
             width: 220px;
@@ -534,7 +786,7 @@
                 gap: 10px;
             }
             
-            .add-ticket-form {
+            .add-ticket-form, .admin-panel {
                 margin: 0 10px 40px;
                 padding: 20px;
             }
@@ -553,6 +805,14 @@
                 display: flex;
                 align-items: center;
             }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .admin-tabs {
+                overflow-x: auto;
+            }
         }
 
         @media (min-width: 769px) {
@@ -568,9 +828,13 @@
         <div class="container">
             <div class="header-content">
                 <div class="logo">Bilietų Bendrinimas</div>
-                <div class="user-info">
+                <div class="user-info" id="userInfoDropdown">
                     <div class="user-avatar" id="userAvatar">U</div>
                     <span id="userName">Vartotojas</span>
+                    <div class="user-dropdown" id="userDropdown">
+                        <div class="user-dropdown-item" id="editProfileBtn">Redaguoti profilį</div>
+                        <div class="user-dropdown-item" id="logoutBtn">Atsijungti</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -596,15 +860,55 @@
         
         <!-- Main Page -->
         <div class="main-page" id="mainPage">
+            <!-- Announcement Banner -->
+            <div class="announcement-banner" id="announcementBanner">
+                <h3>📢 Pranešimas</h3>
+                <p id="announcementText"></p>
+            </div>
+
             <h1 class="page-title">Bendrinami Bilietai</h1>
             
-            <button class="add-ticket-btn" id="addTicketBtn">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <line x1="12" y1="5" x2="12" y2="19"></line>
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                </svg>
-                Pridėti Bilietą
-            </button>
+            <div class="button-group">
+                <button class="add-ticket-btn" id="addTicketBtn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                    Pridėti Bilietą
+                </button>
+                <button class="admin-btn" id="adminPanelBtn" style="display: none;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 15a3 3 0 100-6 3 3 0 000 6z"/>
+                        <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/>
+                    </svg>
+                    Admin Panel
+                </button>
+            </div>
+
+            <!-- Admin Panel -->
+            <div class="admin-panel" id="adminPanel" style="display: none;">
+                <h2>Admin Panel</h2>
+                <div class="admin-tabs">
+                    <button class="admin-tab active" data-tab="users">Vartotojai</button>
+                    <button class="admin-tab" data-tab="announcements">Pranešimai</button>
+                </div>
+                
+                <div class="admin-content active" id="usersTab">
+                    <ul class="user-list" id="userList"></ul>
+                </div>
+                
+                <div class="admin-content" id="announcementsTab">
+                    <div class="form-group">
+                        <label for="announcementTitle">Pranešimo antraštė</label>
+                        <input type="text" id="announcementTitle" class="form-control" placeholder="Įveskite antraštę">
+                    </div>
+                    <div class="form-group">
+                        <label for="announcementMessage">Pranešimo tekstas</label>
+                        <textarea id="announcementMessage" class="form-control" placeholder="Įveskite pranešimą"></textarea>
+                    </div>
+                    <button class="btn btn-primary" id="sendAnnouncementBtn">Siųsti pranešimą</button>
+                </div>
+            </div>
             
             <!-- Add Ticket Form -->
             <div class="add-ticket-form" id="addTicketForm">
@@ -650,6 +954,29 @@
             <!-- Tickets Grid -->
             <div class="tickets-grid" id="ticketsGrid">
                 <!-- Tickets will be dynamically added here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile Edit Modal -->
+    <div class="modal-overlay" id="profileModal">
+        <div class="modal">
+            <h2>Redaguoti profilį</h2>
+            <div class="profile-edit-avatar" id="profileAvatar">
+                <span id="profileAvatarText">U</span>
+            </div>
+            <input type="file" id="avatarUpload" accept="image/*" style="display: none;">
+            <div class="form-group">
+                <label for="profileName">Vardas</label>
+                <input type="text" id="profileName" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="profileEmail">El. paštas</label>
+                <input type="email" id="profileEmail" class="form-control" readonly>
+            </div>
+            <div class="form-actions">
+                <button class="btn btn-secondary" id="cancelProfileEdit">Atšaukti</button>
+                <button class="btn btn-primary" id="saveProfile">Išsaugoti</button>
             </div>
         </div>
     </div>
@@ -709,14 +1036,44 @@
     </div>
 
     <script>
-        // Sample data for demonstration
+        // In-memory storage for users and data
+        let users = [
+            {
+                id: 1,
+                name: "Admin User",
+                email: "admin@example.com",
+                avatar: null,
+                isAdmin: true,
+                isBanned: false
+            },
+            {
+                id: 2,
+                name: "Jonas Petraitis",
+                email: "jonas@example.com",
+                avatar: null,
+                isAdmin: false,
+                isBanned: false
+            },
+            {
+                id: 3,
+                name: "Ona Kazlauskaitė",
+                email: "ona@example.com",
+                avatar: null,
+                isAdmin: false,
+                isBanned: false
+            }
+        ];
+
+        let currentAnnouncement = null;
+
+        // Sample tickets
         const sampleTickets = [
             {
                 id: 1,
                 qrCode: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect fill='white' width='100' height='100'/%3E%3Crect x='5' y='5' width='15' height='15'/%3E%3Crect x='80' y='5' width='15' height='15'/%3E%3Crect x='5' y='80' width='15' height='15'/%3E%3C/svg%3E",
                 expiryDate: "2025-11-05T20:00",
                 discount: "20%",
-                owner: "Jonas P.",
+                ownerId: 2,
                 isActive: true,
                 phone: "+3706xxxx726",
                 duration: 60,
@@ -727,7 +1084,7 @@
                 qrCode: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect fill='white' width='100' height='100'/%3E%3Crect x='5' y='5' width='15' height='15'/%3E%3Crect x='80' y='5' width='15' height='15'/%3E%3Crect x='5' y='80' width='15' height='15'/%3E%3C/svg%3E",
                 expiryDate: "2025-11-06T15:30",
                 discount: "50%",
-                owner: "Ona K.",
+                ownerId: 3,
                 isActive: true,
                 phone: "+3706xxxx123",
                 duration: 45,
@@ -740,45 +1097,250 @@
         const mainPage = document.getElementById('mainPage');
         const mainHeader = document.getElementById('mainHeader');
         const googleLoginBtn = document.getElementById('googleLoginBtn');
+        const userInfoDropdown = document.getElementById('userInfoDropdown');
+        const userDropdown = document.getElementById('userDropdown');
+        const editProfileBtn = document.getElementById('editProfileBtn');
+        const logoutBtn = document.getElementById('logoutBtn');
         const addTicketBtn = document.getElementById('addTicketBtn');
+        const adminPanelBtn = document.getElementById('adminPanelBtn');
+        const adminPanel = document.getElementById('adminPanel');
         const addTicketForm = document.getElementById('addTicketForm');
         const cancelAddTicket = document.getElementById('cancelAddTicket');
         const saveTicket = document.getElementById('saveTicket');
         const ticketsGrid = document.getElementById('ticketsGrid');
         const fullscreenOverlay = document.getElementById('fullscreenOverlay');
-        const ticketPreview = document.getElementById('ticketPreview');
         const backBtn = document.getElementById('backBtn');
-        const previewQrImage = document.getElementById('previewQrImage');
-        const previewPhone = document.getElementById('previewPhone');
-        const previewDuration = document.getElementById('previewDuration');
-        const previewPrice = document.getElementById('previewPrice');
-        const startTime = document.getElementById('startTime');
-        const endTime = document.getElementById('endTime');
-        const timeLeft = document.getElementById('timeLeft');
         const userAvatar = document.getElementById('userAvatar');
         const userName = document.getElementById('userName');
+        const profileModal = document.getElementById('profileModal');
+        const profileAvatar = document.getElementById('profileAvatar');
+        const profileAvatarText = document.getElementById('profileAvatarText');
+        const avatarUpload = document.getElementById('avatarUpload');
+        const profileName = document.getElementById('profileName');
+        const profileEmail = document.getElementById('profileEmail');
+        const cancelProfileEdit = document.getElementById('cancelProfileEdit');
+        const saveProfile = document.getElementById('saveProfile');
+        const announcementBanner = document.getElementById('announcementBanner');
+        const announcementText = document.getElementById('announcementText');
+        const userList = document.getElementById('userList');
+        const sendAnnouncementBtn = document.getElementById('sendAnnouncementBtn');
 
         // Current user and tickets
         let currentUser = null;
         let userTickets = [...sampleTickets];
         let activeTimer = null;
 
-        // Simulate Google login
+        // Google Sign-In (simulated with real Google OAuth flow structure)
         googleLoginBtn.addEventListener('click', () => {
-            currentUser = {
-                name: "Test User",
-                email: "test@example.com",
-                avatar: "TU"
-            };
-            
-            userAvatar.textContent = currentUser.avatar;
-            userName.textContent = currentUser.name;
+            // In production, this would use: gapi.auth2.getAuthInstance().signIn()
+            // For demo purposes, we'll simulate login with the first user
+            simulateGoogleLogin();
+        });
+
+        function simulateGoogleLogin() {
+            // Simulate selecting a user - in production this would be actual Google OAuth
+            const user = users[0]; // Login as admin for demo
+            loginUser(user);
+        }
+
+        function loginUser(user) {
+            if (user.isBanned) {
+                alert('Jūsų paskyra užblokuota. Susisiekite su administratoriumi.');
+                return;
+            }
+
+            currentUser = user;
+            updateUserDisplay();
             
             loginPage.style.display = 'none';
             mainPage.style.display = 'block';
             
+            if (currentUser.isAdmin) {
+                adminPanelBtn.style.display = 'flex';
+            }
+
+            renderTickets();
+            displayAnnouncement();
+        }
+
+        function updateUserDisplay() {
+            if (currentUser.avatar) {
+                userAvatar.innerHTML = `<img src="${currentUser.avatar}" alt="${currentUser.name}">`;
+                profileAvatar.innerHTML = `<img src="${currentUser.avatar}" alt="${currentUser.name}">`;
+            } else {
+                const initials = currentUser.name.split(' ').map(n => n[0]).join('').toUpperCase();
+                userAvatar.textContent = initials;
+                profileAvatarText.textContent = initials;
+            }
+            userName.innerHTML = currentUser.name + (currentUser.isAdmin ? '<span class="admin-badge">Admin</span>' : '');
+        }
+
+        // User dropdown toggle
+        userInfoDropdown.addEventListener('click', (e) => {
+            e.stopPropagation();
+            userDropdown.classList.toggle('active');
+        });
+
+        document.addEventListener('click', () => {
+            userDropdown.classList.remove('active');
+        });
+
+        // Edit profile
+        editProfileBtn.addEventListener('click', () => {
+            profileName.value = currentUser.name;
+            profileEmail.value = currentUser.email;
+            profileModal.classList.add('active');
+            userDropdown.classList.remove('active');
+        });
+
+        profileAvatar.addEventListener('click', () => {
+            avatarUpload.click();
+        });
+
+        avatarUpload.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const img = `<img src="${e.target.result}" alt="Avatar">`;
+                    profileAvatar.innerHTML = img;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        cancelProfileEdit.addEventListener('click', () => {
+            profileModal.classList.remove('active');
+        });
+
+        saveProfile.addEventListener('click', () => {
+            currentUser.name = profileName.value;
+            
+            const img = profileAvatar.querySelector('img');
+            if (img) {
+                currentUser.avatar = img.src;
+            }
+            
+            // Update in users array
+            const userIndex = users.findIndex(u => u.id === currentUser.id);
+            if (userIndex !== -1) {
+                users[userIndex] = currentUser;
+            }
+            
+            updateUserDisplay();
+            profileModal.classList.remove('active');
             renderTickets();
         });
+
+        // Logout
+        logoutBtn.addEventListener('click', () => {
+            currentUser = null;
+            loginPage.style.display = 'flex';
+            mainPage.style.display = 'none';
+            adminPanelBtn.style.display = 'none';
+            adminPanel.style.display = 'none';
+            userDropdown.classList.remove('active');
+        });
+
+        // Admin panel
+        adminPanelBtn.addEventListener('click', () => {
+            if (adminPanel.style.display === 'none') {
+                adminPanel.style.display = 'block';
+                renderUserList();
+            } else {
+                adminPanel.style.display = 'none';
+            }
+        });
+
+        // Admin tabs
+        document.querySelectorAll('.admin-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.admin-content').forEach(c => c.classList.remove('active'));
+                
+                tab.classList.add('active');
+                const tabName = tab.dataset.tab;
+                document.getElementById(tabName + 'Tab').classList.add('active');
+            });
+        });
+
+        // Render user list
+        function renderUserList() {
+            userList.innerHTML = '';
+            users.forEach(user => {
+                if (user.id === currentUser.id) return; // Don't show current user
+                
+                const li = document.createElement('li');
+                li.className = 'user-list-item';
+                
+                const avatarHtml = user.avatar 
+                    ? `<img src="${user.avatar}" alt="${user.name}">`
+                    : user.name.split(' ').map(n => n[0]).join('').toUpperCase();
+                
+                li.innerHTML = `
+                    <div class="user-list-info">
+                        <div class="user-list-avatar">${avatarHtml}</div>
+                        <div>
+                            <div>${user.name} ${user.isAdmin ? '<span class="admin-badge">Admin</span>' : ''}</div>
+                            <small>${user.email}</small>
+                        </div>
+                    </div>
+                    ${user.isBanned 
+                        ? '<span class="banned-tag">Užblokuotas</span>'
+                        : `<button class="ban-btn" data-user-id="${user.id}">Blokuoti</button>`
+                    }
+                `;
+                
+                userList.appendChild(li);
+            });
+
+            // Add ban button listeners
+            document.querySelectorAll('.ban-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const userId = parseInt(e.target.dataset.userId);
+                    banUser(userId);
+                });
+            });
+        }
+
+        // Ban user
+        function banUser(userId) {
+            if (confirm('Ar tikrai norite užblokuoti šį vartotoją?')) {
+                const user = users.find(u => u.id === userId);
+                if (user) {
+                    user.isBanned = true;
+                    renderUserList();
+                    alert(`Vartotojas ${user.name} užblokuotas.`);
+                }
+            }
+        }
+
+        // Send announcement
+        sendAnnouncementBtn.addEventListener('click', () => {
+            const title = document.getElementById('announcementTitle').value;
+            const message = document.getElementById('announcementMessage').value;
+            
+            if (!title || !message) {
+                alert('Užpildykite visus laukus');
+                return;
+            }
+            
+            currentAnnouncement = { title, message };
+            displayAnnouncement();
+            
+            document.getElementById('announcementTitle').value = '';
+            document.getElementById('announcementMessage').value = '';
+            
+            alert('Pranešimas išsiųstas visiems vartotojams!');
+        });
+
+        // Display announcement
+        function displayAnnouncement() {
+            if (currentAnnouncement) {
+                announcementText.innerHTML = `<strong>${currentAnnouncement.title}:</strong> ${currentAnnouncement.message}`;
+                announcementBanner.classList.add('active');
+            }
+        }
 
         // Show add ticket form
         addTicketBtn.addEventListener('click', () => {
@@ -811,7 +1373,7 @@
                 qrCode: URL.createObjectURL(ticketImage),
                 expiryDate: expiryDate,
                 discount: discount,
-                owner: currentUser.name,
+                ownerId: currentUser.id,
                 isActive: true,
                 phone: phone,
                 duration: parseInt(duration),
@@ -839,6 +1401,9 @@
             userTickets.forEach(ticket => {
                 if (!ticket.isActive) return;
                 
+                const owner = users.find(u => u.id === ticket.ownerId);
+                if (!owner || owner.isBanned) return;
+                
                 const ticketElement = document.createElement('div');
                 ticketElement.className = 'ticket-card';
                 
@@ -853,7 +1418,7 @@
                 
                 ticketElement.innerHTML = `
                     <div class="ticket-header">
-                        <span>${ticket.owner}</span>
+                        <span>${owner.name}</span>
                         <span class="ticket-discount">${ticket.discount}</span>
                     </div>
                     <div class="ticket-body">
@@ -863,7 +1428,7 @@
                         <div class="ticket-expiry">Galioja iki: ${formatDate(expiryDate)}</div>
                         <div class="ticket-actions">
                             <button class="prepare-btn" data-id="${ticket.id}">Paruošti</button>
-                            ${ticket.owner === currentUser.name ? 
+                            ${ticket.ownerId === currentUser.id ? 
                                 `<button class="delete-btn" data-id="${ticket.id}">Pašalinti</button>` : 
                                 ''}
                         </div>
@@ -893,17 +1458,17 @@
             const ticket = userTickets.find(t => t.id === ticketId);
             if (!ticket) return;
             
-            previewQrImage.src = ticket.qrCode;
-            previewPhone.textContent = ticket.phone;
-            previewDuration.textContent = ticket.duration + " minučių";
-            previewPrice.textContent = ticket.price.toFixed(2) + " € · Nr. " + (109240746 + ticket.id);
+            document.getElementById('previewQrImage').src = ticket.qrCode;
+            document.getElementById('previewPhone').textContent = ticket.phone;
+            document.getElementById('previewDuration').textContent = ticket.duration + " minučių";
+            document.getElementById('previewPrice').textContent = ticket.price.toFixed(2) + " € · Nr. " + (109240746 + ticket.id);
             
             const expiryDate = new Date(ticket.expiryDate);
             const durationMinutes = ticket.duration;
             const startDate = new Date(expiryDate.getTime() - durationMinutes * 60 * 1000);
             
-            startTime.textContent = formatDateTime(startDate);
-            endTime.textContent = formatDateTime(expiryDate);
+            document.getElementById('startTime').textContent = formatDateTime(startDate);
+            document.getElementById('endTime').textContent = formatDateTime(expiryDate);
             
             startCountdown(expiryDate);
             
@@ -923,7 +1488,7 @@
                 const diff = expiryDate.getTime() - now.getTime();
                 
                 if (diff <= 0) {
-                    timeLeft.textContent = '00:00';
+                    document.getElementById('timeLeft').textContent = '00:00';
                     clearInterval(activeTimer);
                     return;
                 }
@@ -931,7 +1496,7 @@
                 const minutes = Math.floor(diff / (1000 * 60));
                 const seconds = Math.floor((diff % (1000 * 60)) / 1000);
                 
-                timeLeft.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                document.getElementById('timeLeft').textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
             }
             
             updateTimer();
@@ -982,8 +1547,3 @@
     </script>
 </body>
 </html>
-
-
-
-
-
