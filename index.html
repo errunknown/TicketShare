@@ -289,16 +289,16 @@
             color: white;
         }
         
-        /* Ticket Preview */
+        /* Ticket Preview - Tiksliai kaip nuotraukoje */
         .ticket-preview {
             display: none;
             background: white;
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
             max-width: 350px;
-            margin: 40px auto;
+            margin: 20px auto;
             padding: 20px;
             position: relative;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
         
         .back-btn {
@@ -310,22 +310,88 @@
             font-size: 1.5rem;
             cursor: pointer;
             color: var(--dark-color);
+            z-index: 10;
         }
         
-        .ticket-preview-header {
+        .ticket-preview-content {
             text-align: center;
+        }
+        
+        .ticket-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        
+        .phone-number {
+            font-size: 1rem;
+            color: #666;
+            margin-bottom: 15px;
+        }
+        
+        .ticket-duration {
+            font-size: 0.9rem;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .ticket-price {
+            font-size: 0.9rem;
+            color: #666;
             margin-bottom: 20px;
-            padding-top: 10px;
+        }
+        
+        .timer-section {
+            margin: 20px 0;
+        }
+        
+        .time-left-label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        
+        .timer {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #333;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .time-info {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+        
+        .time-column {
+            text-align: center;
+            flex: 1;
+        }
+        
+        .time-label {
+            font-size: 0.8rem;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        
+        .time-value {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #333;
         }
         
         .ticket-preview-qr {
             position: relative;
-            width: 100%;
-            height: 250px;
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 20px;
         }
         
         .qr-border {
@@ -334,9 +400,14 @@
             left: 0;
             width: 100%;
             height: 100%;
-            border: 2px solid var(--primary-color);
-            border-radius: 10px;
-            animation: rotate 10s linear infinite;
+            border: 8px solid transparent;
+            border-radius: 50%;
+            background: conic-gradient(from 0deg, #4285f4, #34a853, #fbbc05, #ea4335, #4285f4);
+            -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            animation: rotate 3s linear infinite;
         }
         
         @keyframes rotate {
@@ -345,32 +416,9 @@
         }
         
         .ticket-preview-qr img {
-            max-width: 80%;
-            max-height: 80%;
-        }
-        
-        .ticket-details {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        
-        .ticket-details p {
-            margin-bottom: 8px;
-        }
-        
-        .timer {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--primary-color);
-            margin: 15px 0;
-        }
-        
-        .time-info {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-            font-size: 0.9rem;
-            color: #666;
+            width: 160px;
+            height: 160px;
+            border-radius: 8px;
         }
         
         /* Responsive */
@@ -386,6 +434,11 @@
             
             .add-ticket-form {
                 margin: 0 20px 40px;
+            }
+            
+            .ticket-preview {
+                margin: 10px;
+                max-width: none;
             }
         }
     </style>
@@ -468,30 +521,35 @@
                 <!-- Tickets will be dynamically added here -->
             </div>
             
-            <!-- Ticket Preview -->
+            <!-- Ticket Preview - Tiksliai kaip nuotraukoje -->
             <div class="ticket-preview" id="ticketPreview">
                 <button class="back-btn" id="backBtn">←</button>
-                <div class="ticket-preview-header">
-                    <h2>Aktyvus bilietas</h2>
-                    <p>+3706xxxx726</p>
-                </div>
-                <div class="ticket-preview-qr">
-                    <div class="qr-border"></div>
-                    <img id="previewQrImage" src="" alt="QR kodas">
-                </div>
-                <div class="timer" id="timer">60:00</div>
-                <div class="ticket-details">
-                    <p>60 minučių</p>
-                    <p>0,25 € · Nr. 109240746</p>
-                </div>
-                <div class="time-info">
-                    <div>
-                        <p>Pradžia</p>
-                        <p id="startTime">2025-11-04 7:48 PM</p>
+                <div class="ticket-preview-content">
+                    <div class="ticket-title">Active ticket</div>
+                    <div class="phone-number" id="previewPhone">+3706xxxx726</div>
+                    
+                    <div class="ticket-duration" id="previewDuration">60 minučių</div>
+                    <div class="ticket-price" id="previewPrice">0,25 € · Nr. 109240746</div>
+                    
+                    <div class="ticket-preview-qr">
+                        <div class="qr-border"></div>
+                        <img id="previewQrImage" src="" alt="QR kodas">
                     </div>
-                    <div>
-                        <p>Pabaiga</p>
-                        <p id="endTime">2025-11-04 8:48 PM</p>
+                    
+                    <div class="timer-section">
+                        <div class="time-left-label">Time left</div>
+                        <div class="timer" id="timer">60:00</div>
+                    </div>
+                    
+                    <div class="time-info">
+                        <div class="time-column">
+                            <div class="time-label">Start</div>
+                            <div class="time-value" id="startTime">2025-11-04 7:48 PM</div>
+                        </div>
+                        <div class="time-column">
+                            <div class="time-label">End</div>
+                            <div class="time-value" id="endTime">2025-11-04 8:48 PM</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -507,7 +565,10 @@
                 expiryDate: "2025-11-05T20:00",
                 discount: "20%",
                 owner: "Jonas P.",
-                isActive: true
+                isActive: true,
+                phone: "+3706xxxx726",
+                duration: "60 minučių",
+                price: "0,25 € · Nr. 109240746"
             },
             {
                 id: 2,
@@ -515,7 +576,10 @@
                 expiryDate: "2025-11-06T15:30",
                 discount: "50%",
                 owner: "Ona K.",
-                isActive: true
+                isActive: true,
+                phone: "+3706xxxx123",
+                duration: "45 minučių",
+                price: "0,15 € · Nr. 109240747"
             },
             {
                 id: 3,
@@ -523,7 +587,10 @@
                 expiryDate: "2025-11-04T18:45",
                 discount: "10%",
                 owner: "Petras L.",
-                isActive: false
+                isActive: false,
+                phone: "+3706xxxx456",
+                duration: "30 minučių",
+                price: "0,10 € · Nr. 109240748"
             }
         ];
 
@@ -539,6 +606,9 @@
         const ticketPreview = document.getElementById('ticketPreview');
         const backBtn = document.getElementById('backBtn');
         const previewQrImage = document.getElementById('previewQrImage');
+        const previewPhone = document.getElementById('previewPhone');
+        const previewDuration = document.getElementById('previewDuration');
+        const previewPrice = document.getElementById('previewPrice');
         const startTime = document.getElementById('startTime');
         const endTime = document.getElementById('endTime');
         const timer = document.getElementById('timer');
@@ -598,7 +668,10 @@
                 expiryDate: expiryDate,
                 discount: discount,
                 owner: currentUser.name,
-                isActive: true
+                isActive: true,
+                phone: "+3706xxxx" + Math.floor(Math.random() * 1000).toString().padStart(3, '0'),
+                duration: "60 minučių",
+                price: "0,25 € · Nr. " + (109240746 + userTickets.length)
             };
             
             userTickets.unshift(newTicket);
@@ -677,6 +750,9 @@
             if (!ticket) return;
             
             previewQrImage.src = ticket.qrCode;
+            previewPhone.textContent = ticket.phone;
+            previewDuration.textContent = ticket.duration;
+            previewPrice.textContent = ticket.price;
             
             const expiryDate = new Date(ticket.expiryDate);
             const startDate = new Date(expiryDate.getTime() - 60 * 60 * 1000); // 1 hour before
