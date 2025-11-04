@@ -384,7 +384,7 @@
 
         .qr-section {
             background: #00b300;
-            padding: 40px 20px;
+            padding: 30px 20px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -394,8 +394,8 @@
         /* Animated circles around QR */
         .qr-container {
             position: relative;
-            width: 280px;
-            height: 280px;
+            width: 220px;
+            height: 220px;
         }
 
         .qr-code {
@@ -403,7 +403,7 @@
             height: 100%;
             background: white;
             border-radius: 10px;
-            padding: 20px;
+            padding: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -416,8 +416,8 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 300px;
-            height: 300px;
+            width: 240px;
+            height: 240px;
             border: 3px solid rgba(255, 255, 255, 0.3);
             border-radius: 50%;
             animation: pulse 2s ease-out infinite;
@@ -433,13 +433,13 @@
 
         @keyframes pulse {
             0% {
-                width: 280px;
-                height: 280px;
+                width: 220px;
+                height: 220px;
                 opacity: 1;
             }
             100% {
-                width: 350px;
-                height: 350px;
+                width: 280px;
+                height: 280px;
                 opacity: 0;
             }
         }
@@ -661,7 +661,7 @@
                 <div class="header-left">
                     <button class="dropdown-btn" id="backBtn" aria-label="Back"></button>
                     <div class="ticket-info-preview">
-                        <h3>Active ticket</h3>
+                        <h1>Active ticket</h1>
                         <div class="phone-number" id="previewPhone">+3706xxxx726</div>
                     </div>
                 </div>
@@ -685,7 +685,7 @@
                 <div class="duration-badge">
                     <div class="bus-icon">🚌</div>
                     <div class="duration-info">
-                        <h3 id="previewDuration">60 minučių</h3>
+                        <h2 id="previewDuration">60 minučių</h2>
                         <div class="price-ticket" id="previewPrice">0,25 € · Nr. 109240746</div>
                     </div>
                 </div>
