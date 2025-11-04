@@ -19,12 +19,12 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
         }
         
         body {
             background-color: #f5f5f5;
-            color: var(--dark-color);
+            color: #333;
             line-height: 1.6;
         }
         
@@ -289,136 +289,176 @@
             color: white;
         }
         
-        /* Ticket Preview - Tiksliai kaip nuotraukoje */
+        /* Ticket Preview - Naudojant Jūsų pateiktą UI */
         .ticket-preview {
             display: none;
+            width: 100%;
+            max-width: 400px;
             background: white;
-            max-width: 350px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
             margin: 20px auto;
-            padding: 20px;
-            position: relative;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
-        
-        .back-btn {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: var(--dark-color);
-            z-index: 10;
-        }
-        
-        .ticket-preview-content {
-            text-align: center;
-        }
-        
-        .ticket-title {
-            font-size: 1.2rem;
-            font-weight: bold;
-            margin-bottom: 5px;
-            color: #333;
-        }
-        
-        .phone-number {
-            font-size: 1rem;
-            color: #666;
-            margin-bottom: 15px;
-        }
-        
-        .ticket-duration {
-            font-size: 0.9rem;
-            color: #333;
-            margin-bottom: 5px;
-        }
-        
-        .ticket-price {
-            font-size: 0.9rem;
-            color: #666;
-            margin-bottom: 20px;
-        }
-        
-        .timer-section {
-            margin: 20px 0;
-        }
-        
-        .time-left-label {
-            font-size: 0.9rem;
-            color: #666;
-            margin-bottom: 5px;
-        }
-        
-        .timer {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #333;
-            font-family: 'Courier New', monospace;
-        }
-        
-        .time-info {
+
+        .header {
             display: flex;
+            align-items: center;
             justify-content: space-between;
-            margin-top: 25px;
-            padding-top: 15px;
-            border-top: 1px solid #eee;
+            padding: 20px;
+            background: #f8f8f8;
+            border-bottom: 1px solid #e0e0e0;
         }
-        
-        .time-column {
-            text-align: center;
-            flex: 1;
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
-        
-        .time-label {
-            font-size: 0.8rem;
-            color: #666;
-            margin-bottom: 5px;
+
+        .dropdown-btn {
+            width: 50px;
+            height: 50px;
+            background: #00b300;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            cursor: pointer;
         }
-        
-        .time-value {
-            font-size: 0.9rem;
-            font-weight: 500;
+
+        .dropdown-btn::after {
+            content: '';
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 10px solid white;
+        }
+
+        .ticket-info h1 {
+            font-size: 24px;
+            font-weight: 600;
             color: #333;
+            margin-bottom: 3px;
         }
-        
-        .ticket-preview-qr {
-            position: relative;
-            width: 200px;
-            height: 200px;
-            margin: 0 auto 20px;
+
+        .phone-number {
+            font-size: 16px;
+            color: #666;
+        }
+
+        .info-btn {
+            width: 40px;
+            height: 40px;
+            border: 2px solid #666;
+            border-radius: 50%;
+            background: transparent;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: #666;
+        }
+
+        .qr-section {
+            background: #00b300;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .qr-code {
+            width: 280px;
+            height: 280px;
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
         }
-        
-        .qr-border {
-            position: absolute;
-            top: 0;
-            left: 0;
+
+        .qr-placeholder {
             width: 100%;
             height: 100%;
-            border: 8px solid transparent;
-            border-radius: 50%;
-            background: conic-gradient(from 0deg, #4285f4, #34a853, #fbbc05, #ea4335, #4285f4);
-            -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
-            mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            animation: rotate 3s linear infinite;
+            background: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        
-        @keyframes rotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+
+        .qr-placeholder img {
+            max-width: 100%;
+            max-height: 100%;
         }
-        
-        .ticket-preview-qr img {
-            width: 160px;
-            height: 160px;
-            border-radius: 8px;
+
+        .ticket-details {
+            padding: 20px;
+        }
+
+        .duration-badge {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .bus-icon {
+            width: 50px;
+            height: 50px;
+            background: #00b300;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .duration-info h2 {
+            font-size: 22px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 3px;
+        }
+
+        .price-ticket {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+
+        .detail-label {
+            font-size: 18px;
+            color: #333;
+            font-weight: 400;
+        }
+
+        .detail-value {
+            font-size: 18px;
+            color: #333;
+            font-weight: 600;
+            text-align: right;
+        }
+
+        .time-left-value {
+            font-size: 18px;
+            font-weight: 600;
         }
         
         /* Responsive */
@@ -510,6 +550,18 @@
                         <option value="100%">Nemokamai</option>
                     </select>
                 </div>
+                <div class="form-group">
+                    <label for="duration">Trukmė (minutėmis)</label>
+                    <input type="number" id="duration" class="form-control" value="60">
+                </div>
+                <div class="form-group">
+                    <label for="price">Kaina (€)</label>
+                    <input type="number" id="price" class="form-control" step="0.01" value="0.25">
+                </div>
+                <div class="form-group">
+                    <label for="phone">Telefono numeris</label>
+                    <input type="text" id="phone" class="form-control" value="+3706xxxx726">
+                </div>
                 <div class="form-actions">
                     <button class="btn btn-secondary" id="cancelAddTicket">Atšaukti</button>
                     <button class="btn btn-primary" id="saveTicket">Išsaugoti</button>
@@ -521,35 +573,49 @@
                 <!-- Tickets will be dynamically added here -->
             </div>
             
-            <!-- Ticket Preview - Tiksliai kaip nuotraukoje -->
+            <!-- Ticket Preview - Naudojant Jūsų pateiktą UI -->
             <div class="ticket-preview" id="ticketPreview">
-                <button class="back-btn" id="backBtn">←</button>
-                <div class="ticket-preview-content">
-                    <div class="ticket-title">Active ticket</div>
-                    <div class="phone-number" id="previewPhone">+3706xxxx726</div>
-                    
-                    <div class="ticket-duration" id="previewDuration">60 minučių</div>
-                    <div class="ticket-price" id="previewPrice">0,25 € · Nr. 109240746</div>
-                    
-                    <div class="ticket-preview-qr">
-                        <div class="qr-border"></div>
-                        <img id="previewQrImage" src="" alt="QR kodas">
-                    </div>
-                    
-                    <div class="timer-section">
-                        <div class="time-left-label">Time left</div>
-                        <div class="timer" id="timer">60:00</div>
-                    </div>
-                    
-                    <div class="time-info">
-                        <div class="time-column">
-                            <div class="time-label">Start</div>
-                            <div class="time-value" id="startTime">2025-11-04 7:48 PM</div>
+                <div class="header">
+                    <div class="header-left">
+                        <button class="dropdown-btn" id="backBtn" aria-label="Menu"></button>
+                        <div class="ticket-info">
+                            <h1>Active ticket</h1>
+                            <div class="phone-number" id="previewPhone">+3706xxxx726</div>
                         </div>
-                        <div class="time-column">
-                            <div class="time-label">End</div>
-                            <div class="time-value" id="endTime">2025-11-04 8:48 PM</div>
+                    </div>
+                    <button class="info-btn" aria-label="Information">i</button>
+                </div>
+
+                <div class="qr-section">
+                    <div class="qr-code">
+                        <div class="qr-placeholder">
+                            <img id="previewQrImage" src="" alt="QR kodas">
                         </div>
+                    </div>
+                </div>
+
+                <div class="ticket-details">
+                    <div class="duration-badge">
+                        <div class="bus-icon">🚌</div>
+                        <div class="duration-info">
+                            <h2 id="previewDuration">60 minučių</h2>
+                            <div class="price-ticket" id="previewPrice">0,25 € · Nr. 109240746</div>
+                        </div>
+                    </div>
+
+                    <div class="detail-row">
+                        <div class="detail-label">Time left</div>
+                        <div class="detail-value time-left-value" id="timeLeft">58:05</div>
+                    </div>
+
+                    <div class="detail-row">
+                        <div class="detail-label">Start</div>
+                        <div class="detail-value" id="startTime">2025-11-04 7:48 PM</div>
+                    </div>
+
+                    <div class="detail-row">
+                        <div class="detail-label">End</div>
+                        <div class="detail-value" id="endTime">2025-11-04 8:48 PM</div>
                     </div>
                 </div>
             </div>
@@ -611,7 +677,7 @@
         const previewPrice = document.getElementById('previewPrice');
         const startTime = document.getElementById('startTime');
         const endTime = document.getElementById('endTime');
-        const timer = document.getElementById('timer');
+        const timeLeft = document.getElementById('timeLeft');
         const userAvatar = document.getElementById('userAvatar');
         const userName = document.getElementById('userName');
 
@@ -655,6 +721,9 @@
             const ticketImage = document.getElementById('ticketImage').files[0];
             const expiryDate = document.getElementById('expiryDate').value;
             const discount = document.getElementById('discount').value;
+            const duration = document.getElementById('duration').value;
+            const price = document.getElementById('price').value;
+            const phone = document.getElementById('phone').value;
             
             if (!ticketImage || !expiryDate) {
                 alert('Prašome užpildyti visus laukus');
@@ -669,9 +738,9 @@
                 discount: discount,
                 owner: currentUser.name,
                 isActive: true,
-                phone: "+3706xxxx" + Math.floor(Math.random() * 1000).toString().padStart(3, '0'),
-                duration: "60 minučių",
-                price: "0,25 € · Nr. " + (109240746 + userTickets.length)
+                phone: phone,
+                duration: duration + " minučių",
+                price: price + " € · Nr. " + (109240746 + userTickets.length)
             };
             
             userTickets.unshift(newTicket);
@@ -681,6 +750,9 @@
             document.getElementById('ticketImage').value = '';
             document.getElementById('expiryDate').value = '';
             document.getElementById('discount').value = '0%';
+            document.getElementById('duration').value = '60';
+            document.getElementById('price').value = '0.25';
+            document.getElementById('phone').value = '+3706xxxx726';
             
             addTicketForm.style.display = 'none';
             addTicketBtn.style.display = 'flex';
@@ -755,7 +827,8 @@
             previewPrice.textContent = ticket.price;
             
             const expiryDate = new Date(ticket.expiryDate);
-            const startDate = new Date(expiryDate.getTime() - 60 * 60 * 1000); // 1 hour before
+            const durationMinutes = parseInt(ticket.duration);
+            const startDate = new Date(expiryDate.getTime() - durationMinutes * 60 * 1000);
             
             startTime.textContent = formatDateTime(startDate);
             endTime.textContent = formatDateTime(expiryDate);
@@ -779,7 +852,7 @@
                 const diff = expiryDate.getTime() - now.getTime();
                 
                 if (diff <= 0) {
-                    timer.textContent = '00:00';
+                    timeLeft.textContent = '00:00';
                     clearInterval(activeTimer);
                     return;
                 }
@@ -787,7 +860,7 @@
                 const minutes = Math.floor(diff / (1000 * 60));
                 const seconds = Math.floor((diff % (1000 * 60)) / 1000);
                 
-                timer.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                timeLeft.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
             }
             
             updateTimer();
